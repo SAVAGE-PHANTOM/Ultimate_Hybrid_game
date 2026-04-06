@@ -18,6 +18,25 @@ public struct Vector3 {
         float dz = Z - other.Z;
         return (float)Math.Sqrt(dx * dx + dy * dy + dz * dz);
     }
+
+    public float Magnitude() {
+        return (float)Math.Sqrt(X * X + Y * Y + Z * Z);
+    }
+
+    public static Vector3 Zero => new Vector3(0, 0, 0);
+
+    public static Vector3 Normalize(Vector3 v) {
+        float mag = v.Magnitude();
+        return mag > 0.0f ? new Vector3(v.X / mag, v.Y / mag, v.Z / mag) : new Vector3(0, 0, 0);
+    }
+
+    public static Vector3 operator *(Vector3 vector, float scalar) {
+        return new Vector3(vector.X * scalar, vector.Y * scalar, vector.Z * scalar);
+    }
+
+    public static Vector3 operator *(float scalar, Vector3 vector) {
+        return vector * scalar;
+    }
 }
 
 public class Enemy {
