@@ -168,6 +168,19 @@ On macOS 10.15 Catalina (MacBook Pro late 2012), Unreal Engine is not a practica
 2. Import the project by selecting the `godot/project.godot` file.
 3. Press Play.
 
+### Multiplayer (Prototype)
+
+This Godot build includes a very small ENet-based multiplayer prototype (position sync only).
+
+- Host (server): run the Godot project with `--server`
+- Join (client): run with `--connect=IP`
+- Optional: `--port=24570`
+
+Example (two Macs on the same network):
+
+- On host: run with `--server`
+- On client: run with `--connect=HOST_LAN_IP`
+
 ## Contributing
 - Use Antigravity agents for code generation.
 - Focus on Director-level instructions.
