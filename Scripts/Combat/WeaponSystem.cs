@@ -9,8 +9,11 @@ public class Weapon {
     public int Damage;
     public float EffectiveRange;
     public bool IsReloading;
+    public float FireInterval;
+    public bool IsAutomatic { get; private set; } = true;
 
     private float reloadTimer;
+    private float fireTimer;
 
     public Weapon(string name, int magazineSize, float reloadTime, int damage, float effectiveRange) {
         Name = name;
@@ -21,10 +24,18 @@ public class Weapon {
         Damage = damage;
         EffectiveRange = effectiveRange;
         IsReloading = false;
+        FireInterval = 0.11f;
         reloadTimer = 0.0f;
+        fireTimer = 0.0f;
     }
 
     public bool CanReload => !IsReloading && AmmoInMagazine < MagazineSize && ReserveAmmo > 0;
+
+    public string ToggleFiringMode() {
+        IsAutomatic = !IsAutomatic;
+        FireInterval = IsAutomatic ? 0.11f : 0.24f;
+        return IsAutomatic ? "Auto" : "Semi";
+    }
 
     public bool TryFire() {
         if (IsReloading) {
@@ -37,7 +48,12 @@ public class Weapon {
             return false;
         }
 
+        if (fireTimer > 0.0f) {
+            return false;
+        }
+
         AmmoInMagazine -= 1;
+        fireTimer = FireInterval;
         Console.WriteLine($"{Name} fired. Remaining ammo: {AmmoInMagazine}/{ReserveAmmo}");
         return true;
     }
@@ -53,6 +69,13 @@ public class Weapon {
     }
 
     public void Update(float deltaTime) {
+        if (fireTimer > 0.0f) {
+            fireTimer -= deltaTime;
+            if (fireTimer < 0.0f) {
+                fireTimer = 0.0f;
+            }
+        }
+
         if (!IsReloading) {
             return;
         }
@@ -69,17 +92,14 @@ public class Weapon {
     }
 
     public bool CalculateHit(Vector3 origin, Vector3 targetPosition, PubgBallistics ballistics) {
-        float distance = origin.DistanceTo(targetPosition);
+        return ballistics.ResolveHit(origin, targetPosition, EffectiveRange, false);
+    }
 
-        if (distance > EffectiveRange) {
-            return false;
-        }
+    public bool CalculateHit(Vector3 origin, Enemy target, PubgBallistics ballistics) {
+        return ballistics.ResolveHit(origin, target.Position, EffectiveRange, target.IsHighlighted || target.IsUavRevealed);
+    }
 
-        float flightTime = distance / ballistics.MuzzleVelocity;
-        float drop = 0.5f * ballistics.Gravity * flightTime * flightTime;
-        float verticalDifference = targetPosition.Y - origin.Y;
-        float tolerance = Math.Min(3.0f, distance * 0.01f + 0.5f);
-
-        return Math.Abs(drop - verticalDifference) <= tolerance;
+    public bool CalculateHit(Vector3 origin, Enemy target, PubgBallistics ballistics, bool ads, bool hipfireAim, bool holdBreath, bool leanActive) {
+        return ballistics.ResolveHit(origin, target.Position, EffectiveRange, target.IsHighlighted || target.IsUavRevealed, ads, hipfireAim, holdBreath, leanActive);
     }
 }

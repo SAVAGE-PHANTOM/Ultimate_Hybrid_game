@@ -99,6 +99,75 @@ Using Google Antigravity's agent-first workflow:
 - Planning Phase: Complete
 - Development: Ready to launch agents
 
+## Current Prototype
+
+This repository now includes a desktop playable prototype built with C# and OpenTK. It is not a full production mobile shooter yet, but it does provide a vertical slice of the README vision:
+
+- Top-down arena on a "Neo-Bermuda" inspired battlefield
+- COD-style sprint and slide with stamina management
+- PUBG-style range-sensitive shooting and bullet accuracy falloff
+- Specialist scan skill that highlights nearby enemies
+- Shrinking zone pressure
+- Extraction unlock after enough eliminations
+- Visual HUD bars for health, stamina, and zone state
+
+### Controls
+
+**Essential Movement & Interaction**
+- `WASD`: Move
+- `Space`: Jump (prototype hop)
+- `V`: Vault (not implemented yet)
+- `C`: Crouch (toggle)
+- `Z`: Prone (toggle)
+- `Left Shift`: Sprint
+- `Left Ctrl`: Walk
+- `F`: Interact (hold to extract once unlocked)
+- `R`: Reload
+
+**Combat Controls**
+- `Left Click`: Fire
+- `Right Click (Hold)`: Aim Down Sights (ADS)
+- `Caps Lock`: Aim (Hipfire tighten toggle)
+- `Q` / `E`: Lean Left / Right (currently accuracy penalty, animation not implemented)
+- `Left Shift (while ADS)`: Hold Breath
+- `B`: Toggle firing mode (Auto/Semi)
+- `G`: Scorestreak (UAV when ready)
+- `Mouse Wheel`: Scope/ADS zoom (not implemented yet)
+
+**Inventory & Gear**
+- `Tab` or `I`: Inventory (toggles a pause-like state)
+- `1`-`5`, `G`, `~`, `8`-`0`: Not implemented yet
+
+**Vehicle & Map**
+- `M`, `F1`, `Insert`, `Middle Mouse Button`: Not implemented yet
+
+Notes:
+- `Middle Mouse Button` currently triggers the scan pulse as a stand-in for quick marker.
+- `Esc` quits.
+
+### Run
+
+```bash
+dotnet run
+```
+
+If `google-services.json` is present, the prototype will also attempt Firebase initialization. If not, it runs in offline mode.
+
+## Godot Build (Recommended For Catalina)
+
+On macOS 10.15 Catalina (MacBook Pro late 2012), Unreal Engine is not a practical target. This repo includes a Godot 3.x starter project in `godot/` that matches the control scheme and starts building the hybrid pillars (movement, loot pickup, vehicle enter/drive, abilities placeholder, UAV scorestreak).
+
+### Install Godot 3.x
+
+- Download Godot 3.x for macOS from the official Godot site on your Mac.
+- Use the standard `.dmg` app install.
+
+### Run The Godot Project
+
+1. Open Godot.
+2. Import the project by selecting the `godot/project.godot` file.
+3. Press Play.
+
 ## Contributing
 - Use Antigravity agents for code generation.
 - Focus on Director-level instructions.

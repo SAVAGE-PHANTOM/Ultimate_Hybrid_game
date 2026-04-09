@@ -1,0 +1,106 @@
+[application]
+
+config/name="Ultimate Hybrid Game (Godot)"
+run/main_scene="res://scenes/Main.tscn"
+
+[display]
+
+window/size/width=1280
+window/size/height=720
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
+
+[input]
+
+move_forward={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"scancode":87,"physical_scancode":87) ]
+}
+move_back={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"scancode":83,"physical_scancode":83) ]
+}
+move_left={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"scancode":65,"physical_scancode":65) ]
+}
+move_right={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"scancode":68,"physical_scancode":68) ]
+}
+jump={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"scancode":32,"physical_scancode":32) ]
+}
+vault={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"scancode":86,"physical_scancode":86) ]
+}
+crouch={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"scancode":67,"physical_scancode":67) ]
+}
+prone={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"scancode":90,"physical_scancode":90) ]
+}
+sprint={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"scancode":16777237,"physical_scancode":16777237) ]
+}
+walk={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"scancode":16777238,"physical_scancode":16777238) ]
+}
+interact={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"scancode":70,"physical_scancode":70) ]
+}
+reload={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"scancode":82,"physical_scancode":82) ]
+}
+fire={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"button_index":1) ]
+}
+ads={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"button_index":2) ]
+}
+hip_aim_toggle={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"scancode":16777234,"physical_scancode":16777234) ]
+}
+lean_left={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"scancode":81,"physical_scancode":81) ]
+}
+lean_right={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"scancode":69,"physical_scancode":69) ]
+}
+toggle_fire_mode={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"scancode":66,"physical_scancode":66) ]
+}
+inventory={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"scancode":16777217,"physical_scancode":16777217), Object(InputEventKey,"scancode":73,"physical_scancode":73) ]
+}
+scorestreak_uav={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"scancode":71,"physical_scancode":71) ]
+}
+map={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"scancode":77,"physical_scancode":77), Object(InputEventKey,"scancode":16777265,"physical_scancode":16777265) ]
+}
+mark_location={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"scancode":16777227,"physical_scancode":16777227) ]
+}
+quick_marker={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"button_index":3) ]
+}

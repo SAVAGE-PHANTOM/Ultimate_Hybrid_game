@@ -1,53 +1,32 @@
-﻿using OpenTK.Mathematics;
-using OpenTK.Windowing.Desktop;
+﻿using System;
 using System.IO;
-using System.Text.Json;
-using FirebaseAdmin;
-using Google.Apis.Auth.OAuth2;
+using OpenTK.Mathematics;
+using OpenTK.Windowing.Desktop;
 
-class Program {
-    static void Main() {
-        // Initialize Firebase
-        FirebaseApp.Create(new AppOptions()
-        {
-            Credential = GoogleCredential.FromFile("google-services.json"),
-        });
+namespace Ultimate_Hybrid_game;
 
-        Console.WriteLine("Firebase is ready for the game!");
+internal static class Program {
+    private static void Main() {
+        Console.WriteLine("Launching Ultimate Hybrid Game prototype...");
+        TryInitializeFirebase();
 
-        // Load Firebase configuration from google-services.json
-        LoadFirebaseConfig();
-
-        var gameWindowSettings = GameWindowSettings.Default;
-        var nativeWindowSettings = new NativeWindowSettings() {
-            Size = new Vector2i(1280, 720),
-            Title = "Ultimate Hybrid Game Preview"
+        GameWindowSettings gameWindowSettings = GameWindowSettings.Default;
+        NativeWindowSettings nativeWindowSettings = new NativeWindowSettings {
+            Size = new Vector2i(1280, 768),
+            Title = "Ultimate Hybrid Game",
+            APIVersion = new Version(3, 3)
         };
 
-        using var window = new VisualGame(gameWindowSettings, nativeWindowSettings);
+        using VisualGame window = new VisualGame(gameWindowSettings, nativeWindowSettings);
         window.Run();
     }
 
-    static void LoadFirebaseConfig() {
-        string configPath = "google-services.json";
-        if (File.Exists(configPath)) {
-            try {
-                string jsonContent = File.ReadAllText(configPath);
-                using (JsonDocument doc = JsonDocument.Parse(jsonContent)) {
-                    JsonElement root = doc.RootElement;
-                    // Extract Firebase configuration
-                    if (root.TryGetProperty("project_info", out var projectInfo)) {
-                        if (projectInfo.TryGetProperty("project_id", out var projectId)) {
-                            Console.WriteLine($"Firebase Project ID: {projectId.GetString()}");
-                        }
-                    }
-                    Console.WriteLine("Firebase configuration loaded successfully.");
-                }
-            } catch (Exception ex) {
-                Console.WriteLine($"Warning: Could not load Firebase config: {ex.Message}");
-            }
-        } else {
-            Console.WriteLine("Note: google-services.json not found. Firebase configuration not loaded.");
+    private static void TryInitializeFirebase() {
+        if (!File.Exists("google-services.json")) {
+            Console.WriteLine("Firebase config not found. Running in offline prototype mode.");
+            return;
         }
+
+        Console.WriteLine("Firebase config detected. Backend wiring is staged, but this prototype currently runs offline.");
     }
 }

@@ -37,19 +37,31 @@ public struct Vector3 {
     public static Vector3 operator *(float scalar, Vector3 vector) {
         return vector * scalar;
     }
+
+    public static Vector3 operator +(Vector3 left, Vector3 right) {
+        return new Vector3(left.X + right.X, left.Y + right.Y, left.Z + right.Z);
+    }
+
+    public static Vector3 operator -(Vector3 left, Vector3 right) {
+        return new Vector3(left.X - right.X, left.Y - right.Y, left.Z - right.Z);
+    }
 }
 
 public class Enemy {
+    public string Name = "Raider";
     public Vector3 Position;
+    public float Health = 100.0f;
     public bool IsHighlighted = false;
+    public bool IsUavRevealed = false;
+    public float AttackCooldown = 0.0f;
+    public bool IsAlive => Health > 0.0f;
 }
 
 public class HeroSkills {
-    // Skill Attributes
     public string ActiveSkillName = "Tactical Scan";
-    public float SkillCooldown = 45.0f;
-    public float ScanRadius = 30.0f;
-    public float HighlightDuration = 3.0f;
+    public float SkillCooldown = 18.0f;
+    public float ScanRadius = 250.0f;
+    public float HighlightDuration = 6.0f;
     public bool IsSkillReady = true;
 
     private float skillCooldownTimer = 0.0f;
@@ -102,7 +114,7 @@ public class HeroSkills {
     private IEnumerable<Enemy> SphereTrace(Vector3 center, float radius, IEnumerable<Enemy> potentialTargets) {
         List<Enemy> hits = new List<Enemy>();
         foreach (Enemy enemy in potentialTargets) {
-            if (enemy.Position.DistanceTo(center) <= radius) {
+            if (enemy.IsAlive && enemy.Position.DistanceTo(center) <= radius) {
                 hits.Add(enemy);
             }
         }

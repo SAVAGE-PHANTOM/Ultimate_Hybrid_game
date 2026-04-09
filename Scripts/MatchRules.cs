@@ -1,13 +1,12 @@
 using System;
 
 public class MatchRules {
-    // 1. The "Zone" (PUBG style)
-    public float CircleRadius = 4000.0f; // 4km map
-    public float CurrentZoneRadius = 4000.0f;
-    public float ZoneShrinkRate = 120.0f;
-    public float DamagePerSecond = 5.0f;
+    public float CircleRadius = 520.0f;
+    public float CurrentZoneRadius = 520.0f;
+    public float ZoneShrinkRate = 5.5f;
+    public float DamagePerSecond = 8.0f;
+    public Vector3 ZoneCenter = new Vector3(600.0f, 360.0f, 0.0f);
 
-    // 2. The Players (COD/Free Fire hybrid)
     public int MaxPlayers = 100;
     public bool AutoExtractionEnabled = true;
 
@@ -19,15 +18,15 @@ public class MatchRules {
     }
 
     public void UpdateZone(float deltaTime) {
-        if (CurrentZoneRadius > 200.0f) {
+        if (CurrentZoneRadius > 120.0f) {
             CurrentZoneRadius -= ZoneShrinkRate * deltaTime;
-            if (CurrentZoneRadius < 200.0f) {
-                CurrentZoneRadius = 200.0f;
+            if (CurrentZoneRadius < 120.0f) {
+                CurrentZoneRadius = 120.0f;
             }
         }
     }
 
     public bool IsOutsideZone(Vector3 position) {
-        return position.DistanceTo(Vector3.Zero) > CurrentZoneRadius;
+        return position.DistanceTo(ZoneCenter) > CurrentZoneRadius;
     }
 }

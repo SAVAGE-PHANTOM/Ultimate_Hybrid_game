@@ -1,26 +1,23 @@
 using System;
 
 public class CodMovement {
-    // Movement Stats
-    public float BaseSpeed = 600.0f;
+    public float BaseSpeed = 160.0f;
     public float SprintMultiplier = 1.5f;
-    public float CrouchSpeed = 300.0f;
+    public float CrouchSpeed = 90.0f;
 
-    // Slide Variables
     public bool IsSliding = false;
-    public float SlideForce = 400.0f;
-    public float SlideDuration = 1.5f;
-    public float SlideCooldown = 2.0f;
+    public float SlideForce = 160.0f;
+    public float SlideDuration = 0.45f;
+    public float SlideCooldown = 1.6f;
 
-    public float CurrentVelocity = 600.0f;
+    public float CurrentVelocity = 160.0f;
     private float slideTimer = 0.0f;
     private float cooldownTimer = 0.0f;
 
-    // Stamina and sprinting
     public float MaxStamina = 100.0f;
     public float CurrentStamina = 100.0f;
-    public float SprintDrainRate = 18.0f;
-    public float StaminaRecoverRate = 12.0f;
+    public float SprintDrainRate = 24.0f;
+    public float StaminaRecoverRate = 18.0f;
     public bool IsSprinting = false;
 
     public void ApplySlide() {
